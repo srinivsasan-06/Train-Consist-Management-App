@@ -1,7 +1,16 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class TrainConsistManagementApp {
+
+    // Method to perform Linear Search
+    public static boolean linearSearch(String[] bogieIDs, String key) {
+        for (int i = 0; i < bogieIDs.length; i++) {
+            if (bogieIDs[i].equals(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
 
@@ -9,19 +18,26 @@ public class TrainConsistManagementApp {
 
         System.out.print("Enter number of bogies: ");
         int n = scanner.nextInt();
-        scanner.nextLine(); // consume newline
+        scanner.nextLine();
 
-        String[] bogieNames = new String[n];
+        String[] bogieIDs = new String[n];
 
-        System.out.println("Enter bogie type names:");
+        System.out.println("Enter bogie IDs:");
         for (int i = 0; i < n; i++) {
-            bogieNames[i] = scanner.nextLine();
+            bogieIDs[i] = scanner.nextLine();
         }
 
-        Arrays.sort(bogieNames);
+        System.out.print("Enter bogie ID to search: ");
+        String searchKey = scanner.nextLine();
 
 
-        System.out.println("Sorted Bogie Names: " + Arrays.toString(bogieNames));
+        boolean found = linearSearch(bogieIDs, searchKey);
+
+        if (found) {
+            System.out.println("Bogie ID " + searchKey + " exists in the train consist.");
+        } else {
+            System.out.println("Bogie ID " + searchKey + " not found in the train consist.");
+        }
 
         scanner.close();
     }
