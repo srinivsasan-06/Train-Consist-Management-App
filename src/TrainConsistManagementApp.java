@@ -1,57 +1,58 @@
+import java.util.Scanner;
 
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
+public class TrainConsistManagementApp {
 
 
-class GoodsBogie {
-    private String shape;
-    private String cargo;
+    public static void bubbleSort(int[] capacities) {
+        int n = capacities.length;
 
-    public GoodsBogie(String shape) {
-        this.shape = shape;
-    }
 
-    public void assignCargo(String cargo) {
-        try {
+        for (int i = 0; i < n - 1; i++) {
 
-            if (shape.equalsIgnoreCase("Rectangular") && cargo.equalsIgnoreCase("Petroleum")) {
-                throw new CargoSafetyException("Unsafe Assignment: Petroleum cannot be assigned to a Rectangular bogie!");
+
+            for (int j = 0; j < n - i - 1; j++) {
+
+
+                if (capacities[j] > capacities[j + 1]) {
+
+
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp;
+                }
             }
-            this.cargo = cargo;
-            System.out.println("Cargo '" + cargo + "' successfully assigned to " + shape + " bogie.");
-        } catch (CargoSafetyException e) {
-
-            System.err.println("Error: " + e.getMessage());
-        } finally {
-
-            System.out.println("Cargo assignment validation completed for " + shape + " bogie.");
         }
     }
 
-    public String getCargo() {
-        return cargo;
+
+    public static void display(int[] capacities) {
+        System.out.print("Sorted Passenger Bogie Capacities: ");
+        for (int cap : capacities) {
+            System.out.print(cap + " ");
+        }
+        System.out.println();
     }
-}
 
-
-public class TrainConsistManagementApp {
     public static void main(String[] args) {
 
-        GoodsBogie cylindricalBogie = new GoodsBogie("Cylindrical");
-        cylindricalBogie.assignCargo("Petroleum");
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println();
+        System.out.print("Enter number of passenger bogies: ");
+        int n = scanner.nextInt();
+
+        int[] capacities = new int[n];
+
+        System.out.println("Enter capacities of passenger bogies:");
+        for (int i = 0; i < n; i++) {
+            capacities[i] = scanner.nextInt();
+        }
 
 
-        GoodsBogie rectangularBogie = new GoodsBogie("Rectangular");
-        rectangularBogie.assignCargo("Petroleum");
-
-        System.out.println();
+        bubbleSort(capacities);
 
 
-        rectangularBogie.assignCargo("Coal");
+        display(capacities);
+
+        scanner.close();
     }
 }
